@@ -1,7 +1,0 @@
----
-description: "Nuxt UI"
-globs:
-alwaysApply: true
----
-
-use MUST use @nuxt/ui for ui kit

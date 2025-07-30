@@ -1,7 +1,0 @@
----
-description: "Lint"
-globs:
-alwaysApply: true
----
-
-use MUST use snake-case for AL¨
