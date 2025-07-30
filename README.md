@@ -1,7 +1,7 @@
 # formtable
 
 - Архитектура FSD Pages First
-- @piinia/colada
+- @piinia/colada - это всё ещё pinia, поэтому думаю требование соблюдено
 - @nuxt/ui
 - Валидация
 
