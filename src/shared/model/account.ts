@@ -7,7 +7,9 @@ export const useAccounts = defineQuery(() => {
   const { data: accounts, ...rest } = useQuery({
     key: qk.accounts,
     query: async () => {
-      const data = z.array(accountSchema).parse(JSON.parse(localStorage.getItem('accounts') ?? "{}"))
+
+      const string = localStorage.getItem('accounts') ?? "[]"
+      const data = z.array(accountSchema).parse(JSON.parse(string))
       return data
     },
     placeholderData: []
@@ -31,12 +33,15 @@ export const useCreateAccount = defineMutation(() => {
       newAccount.push({
         id: crypto.randomUUID(),
         labels: [],
-        type: 'local',
+        type: 'ldap',
         login: '',
-        password: "",
+        password: null,
       })
 
-      qc.setQueryData(qk.accounts, newAccount)
+      localStorage.setItem('accounts', JSON.stringify(newAccount))
+    },
+    onSettled: () => {
+      qc.invalidateQueries({ key: qk.accounts })
     }
   })
 
@@ -57,7 +62,10 @@ export const useUpdateAccount = defineMutation(() => {
         account.id === updatedAccount.id ? { ...account, ...updatedAccount } : account
       )
 
-      qc.setQueryData(qk.accounts, newAccounts)
+      localStorage.setItem('accounts', JSON.stringify(newAccounts))
+    },
+    onSettled: () => {
+      qc.invalidateQueries({ key: qk.accounts })
     }
   })
 
@@ -76,7 +84,11 @@ export const useDeleteAccount = defineMutation(() => {
 
       const updatedAccounts = accounts.filter(account => account.id !== id)
 
-      qc.setQueryData(qk.accounts, updatedAccounts)
+      localStorage.setItem('accounts', JSON.stringify(updatedAccounts))
+    },
+
+    onSettled: () => {
+      qc.invalidateQueries({ key: qk.accounts })
     }
   })
 
