@@ -24,9 +24,7 @@ const { deleteAccount } = useDeleteAccount()
         v-for="account in accounts"
         :key="account.id"
         :account="account"
-        @update:account="account => {
-          console.log('Updating account:', account)
-          updateAccount(account)}"
+        @update:account="account => updateAccount(account)"
         @delete="id => deleteAccount(id)"
         />
     </div>

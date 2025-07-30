@@ -1,6 +1,6 @@
 # formtable
 
-- Архитектура FSD
+- Архитектура FSD Pages First
 - @piinia/colada
 - @nuxt/ui
 - Валидация
