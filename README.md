@@ -1,6 +1,9 @@
 # formtable
 
-Первый раз Cursor использую
+- Архитектура FSD
+- @piinia/colada
+- @nuxt/ui
+- Валидация
 
 ## Project Setup
 
