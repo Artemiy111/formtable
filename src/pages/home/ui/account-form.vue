@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { accountSchema, accountTypeLabels, accountTypes, type Account } from '@/shared/types'
-import { computed } from 'vue'
+import { syncRefs } from '@vueuse/core'
+import { ref, computed, useTemplateRef } from 'vue'
 
-const account = defineModel<Account>('account', {required: true})
-
-const emit = defineEmits<{
-  'delete': [id: string]
+const {account} = defineProps<{
+  account: Account
 }>()
 
+const state = ref(account)
+syncRefs(() => account, state)
+
+const emit = defineEmits<{
+  'delete': [id: string],
+  'update:account': [account: Account]
+}>()
+
+const form = useTemplateRef('form')
 
 const selectItems = accountTypes.map(type => ({
   value: type,
@@ -15,10 +23,10 @@ const selectItems = accountTypes.map(type => ({
 }))
 
 const labelsString = computed({
-  get: () => account.value.labels.map(label => label.text).join('; '),
+  get: () => state.value.labels.map(label => label.text).join('; '),
   set: (value) => {
     const labels = value.split(';').map(label => label.trim()).map(text=> ({text}))
-    account.value = { ...account.value, labels }
+    state.value.labels = labels
   },
 })
 
@@ -27,12 +35,17 @@ const labelsString = computed({
 <template>
   <UForm
     class="grid gap-x-4 gap-y-8 w-full items-top" 
-    :data-account-type="account.type"
-    :class="[account.type === 'local' ? 'grid-cols-[1fr_1fr_1fr_1fr_auto]' : 'grid-cols-[1fr_1fr_2fr_auto]']"
-    :state="account" 
+    :data-account-type="state.type"
+    :class="[state.type === 'local' ? 'grid-cols-[1fr_1fr_1fr_1fr_auto]' : 'grid-cols-[1fr_1fr_2fr_auto]']"
+    :state="state" 
     :schema="accountSchema"
+    @submit="e => {
+      console.log('submit', e.data)
+      emit('update:account', e.data)
+    }"
     ref="form"
   >
+  <pre>{{ account }}</pre>
     <UFormField name="labels" label="Метки">
       <UInput class="w-full" v-model="labelsString"  />
     </UFormField>
@@ -41,17 +54,34 @@ const labelsString = computed({
       <USelect
         class="w-full"
         :items="selectItems"
-        :model-value="account.type"
-        @update:model-value="(type) => account = {...account, type, password: type === 'local' ? account.password ?? '' : null}"
+        :model-value="state.type"
+        @update:model-value="(type) => {
+          state.type = type
+          state.password = type === 'local' ? state.password ?? '' : null
+          form?.submit()
+        }"
       />
     </UFormField>
 
     <UFormField name="login" label="Логин">
-      <UInput class="w-full" :model-value="account.login" @update:model-value="(login) => account = {...account, login}" />
+      <UInput
+        class="w-full"        
+        :model-value="state.login" 
+        @update:model-value="(login) => {
+          state.login = login
+          form?.submit()
+        }" />
     </UFormField>
 
-    <UFormField v-if="account.type === 'local'" name="password" label="Пароль">
-      <UInput class="w-full" type="password" :model-value="account.password" @update:model-value="(password) => account = {...account, password}" />
+    <UFormField v-if="state.type === 'local'" name="password" label="Пароль">
+      <UInput
+        class="w-full"
+        type="password"
+        :model-value="state.password"
+        @update:model-value="(password) => {
+          state.password = password
+          form?.submit()
+        }" />
     </UFormField>
 
     <UButton 
