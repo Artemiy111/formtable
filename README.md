@@ -1,5 +1,7 @@
 # formtable
 
+Первый раз Cursor использую
+
 ## Project Setup
 
 ```sh

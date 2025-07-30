@@ -1,0 +1,59 @@
+---
+description: "FSD"
+alwaysApply: true
+---
+
+
+use MUST use Features Sliced Design https://feature-sliced.github.io
+
+use MUST use Pages first approach meaning to not extract code to features and entities layers if unnecessary, but use can still use shared layer
+
+## Structure example
+
+- src
+  - app
+  - pages
+    - home
+      - +home.vue
+      - ui
+        - smth-smth.vue
+        - index.ts
+  - widgets
+  - features
+  - entities
+  - shared
+    - ui
+    - lib
+    - types
+    - api
+    - model
+      - user.ts
+      - index.ts
+
+
+use MUST use Features Sliced Design https://feature-sliced.github.io
+
+use MUST use Pages first approach meaning to not extract code to features and entities layers if unnecessary, but use can still use shared layer
+
+## Structure example
+
+- src
+  - app
+  - pages
+    - home
+      - +home.vue
+      - ui
+        - smth-smth.vue
+        - index.ts
+  - widgets
+  - features
+  - entities
+  - shared
+    - ui
+    - lib
+    - types
+    - api
+    - model
+      - user.ts
+      - index.ts
+
