@@ -59,6 +59,9 @@ declare global {
   export type { OverlayOptions, Overlay } from './node_modules/@nuxt/ui/dist/runtime/composables/useOverlay.d'
   import('./node_modules/@nuxt/ui/dist/runtime/composables/useOverlay.d')
   // @ts-ignore
+  export type { UseResizableProps, UseResizableReturn } from './node_modules/@nuxt/ui/dist/runtime/composables/useResizable.d'
+  import('./node_modules/@nuxt/ui/dist/runtime/composables/useResizable.d')
+  // @ts-ignore
   export type { Toast } from './node_modules/@nuxt/ui/dist/runtime/composables/useToast.d'
   import('./node_modules/@nuxt/ui/dist/runtime/composables/useToast.d')
 }

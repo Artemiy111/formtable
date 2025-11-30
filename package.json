@@ -18,7 +18,7 @@
     "lint": "run-s lint:*"
   },
   "dependencies": {
-    "@nuxt/ui": "^3.3.0",
+    "@nuxt/ui": "^4.2.1",
     "@pinia/colada": "^0.17.1",
     "@unhead/vue": "^2.0.12",
     "@vee-validate/zod": "^4.15.1",
