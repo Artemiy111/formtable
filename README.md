@@ -1,9 +1,9 @@
 # formtable
 
-- Архитектура FSD Pages First
-- @piinia/colada - это всё ещё pinia, поэтому думаю требование соблюдено
+- Feature-Sliced Design / Pages First
+- @pinia/colada
 - @nuxt/ui
-- Валидация
+- Validation
 
 ## Project Setup
 
