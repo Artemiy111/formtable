@@ -1,0 +1,1 @@
+podman build --security-opt label=disable -f Dockerfile.nginx -t formtable-nginx:latest .             
