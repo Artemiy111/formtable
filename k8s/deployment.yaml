@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: formtable
-          image: localhost/formtable:latest
+          image: artemiy111/formtable-nginx:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 80
